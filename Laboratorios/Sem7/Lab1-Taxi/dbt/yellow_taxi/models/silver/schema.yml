@@ -1,0 +1,36 @@
+version: 2
+
+models:
+
+  - name: stg_yellow_taxi
+
+    description: >
+      Datos de viajes Yellow Taxi limpiados y estandarizados a partir
+      de la capa Bronze.
+
+    columns:
+
+      - name: TRIP_ID
+        description: Identificador determinístico del viaje.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: TPEP_PICKUP_DATETIME
+        description: Fecha y hora de inicio del viaje.
+        data_tests:
+          - not_null
+
+      - name: TPEP_DROPOFF_DATETIME
+        description: Fecha y hora de finalización del viaje.
+        data_tests:
+          - not_null
+
+      - name: PULOCATIONID
+        description: Identificador de la zona de origen.
+
+      - name: DOLOCATIONID
+        description: Identificador de la zona de destino.
+
+      - name: TOTAL_AMOUNT
+        description: Monto total cobrado por el viaje.

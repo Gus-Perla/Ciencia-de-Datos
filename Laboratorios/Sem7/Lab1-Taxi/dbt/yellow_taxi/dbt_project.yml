@@ -1,0 +1,24 @@
+name: yellow_taxi
+version: "1.0.0"
+config-version: 2
+
+profile: yellow_taxi
+
+model-paths:
+  - models
+
+target-path: target
+
+clean-targets:
+  - target
+  - dbt_packages
+
+models:
+  yellow_taxi:
+    silver:
+      +schema: SILVER
+      +materialized: table
+
+    gold:
+      +schema: GOLD
+      +materialized: table
