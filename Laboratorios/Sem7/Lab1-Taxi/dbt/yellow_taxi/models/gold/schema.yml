@@ -1,0 +1,169 @@
+version: 1
+
+models:
+
+  - name: dim_date
+
+    description: >
+      Dimensión calendario asociada a la fecha de pickup
+      de cada viaje.
+
+    columns:
+
+      - name: DATE_KEY
+        description: Clave primaria de la dimensión fecha.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: FULL_DATE
+        description: Fecha completa.
+        data_tests:
+          - not_null
+
+
+  - name: dim_time
+
+    description: >
+      Dimensión temporal asociada a la hora de pickup.
+
+    columns:
+
+      - name: TIME_KEY
+        description: Clave primaria de la dimensión tiempo.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: FULL_TIME
+        description: Hora completa.
+        data_tests:
+          - not_null
+
+
+  - name: dim_location
+
+    description: >
+      Dimensión de Taxi Zones proporcionada por NYC TLC.
+
+    columns:
+
+      - name: LOCATION_KEY
+        description: Clave primaria de la zona.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: LOCATIONID
+        description: Identificador de la zona TLC.
+        data_tests:
+          - not_null
+          - unique
+
+
+  - name: dim_payment
+
+    description: >
+      Dimensión de métodos de pago utilizados en los viajes.
+
+    columns:
+
+      - name: PAYMENT_KEY
+        description: Clave primaria del tipo de pago.
+        data_tests:
+          - not_null
+          - unique
+
+
+  - name: dim_rate
+
+    description: >
+      Dimensión de códigos de tarifa.
+
+    columns:
+
+      - name: RATE_KEY
+        description: Clave primaria del código de tarifa.
+        data_tests:
+          - not_null
+          - unique
+
+
+  - name: dim_vendor
+
+    description: >
+      Dimensión de proveedores TPEP.
+
+    columns:
+
+      - name: VENDOR_KEY
+        description: Clave primaria del proveedor.
+        data_tests:
+          - not_null
+          - unique
+
+
+  - name: fct_trips
+
+    description: >
+      Tabla de hechos cuyo grano es un viaje individual
+      válido de Yellow Taxi.
+
+    columns:
+
+      - name: TRIP_ID
+        description: Identificador determinístico del viaje.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: DATE_KEY
+        description: Clave foránea hacia DIM_DATE.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_KEY
+
+      - name: TIME_KEY
+        description: Clave foránea hacia DIM_TIME.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_time')
+              field: TIME_KEY
+
+      - name: PICKUP_LOCATION_KEY
+        description: Clave foránea de la zona de pickup.
+        data_tests:
+          - relationships:
+              to: ref('dim_location')
+              field: LOCATION_KEY
+
+      - name: DROPOFF_LOCATION_KEY
+        description: Clave foránea de la zona de dropoff.
+        data_tests:
+          - relationships:
+              to: ref('dim_location')
+              field: LOCATION_KEY
+
+      - name: PAYMENT_KEY
+        description: Clave foránea hacia DIM_PAYMENT.
+        data_tests:
+          - relationships:
+              to: ref('dim_payment')
+              field: PAYMENT_KEY
+
+      - name: RATE_KEY
+        description: Clave foránea hacia DIM_RATE.
+        data_tests:
+          - relationships:
+              to: ref('dim_rate')
+              field: RATE_KEY
+
+      - name: VENDOR_KEY
+        description: Clave foránea hacia DIM_VENDOR.
+        data_tests:
+          - relationships:
+              to: ref('dim_vendor')
+              field: VENDOR_KEY
