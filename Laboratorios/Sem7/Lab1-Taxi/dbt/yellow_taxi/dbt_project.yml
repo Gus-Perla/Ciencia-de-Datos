@@ -7,6 +7,9 @@ profile: yellow_taxi
 model-paths:
   - models
 
+seed-paths:
+  - seeds
+
 target-path: target
 
 clean-targets:
@@ -22,3 +25,7 @@ models:
     gold:
       +schema: GOLD
       +materialized: table
+
+seeds:
+  yellow_taxi:
+    +schema: GOLD

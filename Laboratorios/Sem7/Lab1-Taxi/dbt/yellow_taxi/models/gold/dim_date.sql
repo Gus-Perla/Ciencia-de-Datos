@@ -1,0 +1,40 @@
+{{ config(
+    materialized='table'
+) }}
+
+WITH dates AS (
+
+    SELECT DISTINCT
+        CAST(TPEP_PICKUP_DATETIME AS DATE) AS FULL_DATE
+
+    FROM {{ ref('stg_yellow_taxi') }}
+
+)
+
+SELECT
+
+    TO_NUMBER(TO_CHAR(FULL_DATE, 'YYYYMMDD')) AS DATE_KEY,
+
+    FULL_DATE,
+
+    YEAR(FULL_DATE) AS YEAR,
+
+    QUARTER(FULL_DATE) AS QUARTER,
+
+    MONTH(FULL_DATE) AS MONTH,
+
+    TO_CHAR(FULL_DATE, 'MMMM') AS MONTH_NAME,
+
+    DAY(FULL_DATE) AS DAY,
+
+    DAYOFWEEK(FULL_DATE) AS DAY_OF_WEEK,
+
+    TO_CHAR(FULL_DATE, 'DY') AS DAY_NAME,
+
+    CASE
+        WHEN DAYOFWEEK(FULL_DATE) IN (1, 7)
+            THEN TRUE
+        ELSE FALSE
+    END AS IS_WEEKEND
+
+FROM dates
