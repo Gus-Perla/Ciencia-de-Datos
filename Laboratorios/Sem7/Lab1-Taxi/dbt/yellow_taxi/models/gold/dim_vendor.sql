@@ -4,10 +4,11 @@
 
 WITH vendors AS (
 
-    SELECT DISTINCT
-        VENDORID
+    SELECT DISTINCT VENDORID
 
     FROM {{ ref('stg_yellow_taxi') }}
+
+    WHERE VENDORID IS NOT NULL
 
 )
 

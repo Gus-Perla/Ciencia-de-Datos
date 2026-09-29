@@ -4,10 +4,11 @@
 
 WITH rates AS (
 
-    SELECT DISTINCT
-        RATECODEID
+    SELECT DISTINCT RATECODEID
 
     FROM {{ ref('stg_yellow_taxi') }}
+
+    WHERE RATECODEID IS NOT NULL
 
 )
 

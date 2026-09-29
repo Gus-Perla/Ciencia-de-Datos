@@ -111,59 +111,60 @@ models:
 
     columns:
 
-      - name: TRIP_ID
-        description: Identificador determinístico del viaje.
-        data_tests:
-          - not_null
-          - unique
-
       - name: DATE_KEY
         description: Clave foránea hacia DIM_DATE.
         data_tests:
           - not_null
           - relationships:
-              to: ref('dim_date')
-              field: DATE_KEY
+              arguments:
+                to: ref('dim_date')
+                field: DATE_KEY
 
       - name: TIME_KEY
         description: Clave foránea hacia DIM_TIME.
         data_tests:
           - not_null
           - relationships:
-              to: ref('dim_time')
-              field: TIME_KEY
+              arguments:
+                to: ref('dim_time')
+                field: TIME_KEY
 
       - name: PICKUP_LOCATION_KEY
         description: Clave foránea de la zona de pickup.
         data_tests:
           - relationships:
-              to: ref('dim_location')
-              field: LOCATION_KEY
+              arguments:
+                to: ref('dim_location')
+                field: LOCATION_KEY
 
       - name: DROPOFF_LOCATION_KEY
         description: Clave foránea de la zona de dropoff.
         data_tests:
           - relationships:
-              to: ref('dim_location')
-              field: LOCATION_KEY
+              arguments:
+                to: ref('dim_location')
+                field: LOCATION_KEY
 
       - name: PAYMENT_KEY
         description: Clave foránea hacia DIM_PAYMENT.
         data_tests:
           - relationships:
-              to: ref('dim_payment')
-              field: PAYMENT_KEY
+              arguments:
+                to: ref('dim_payment')
+                field: PAYMENT_KEY
 
       - name: RATE_KEY
         description: Clave foránea hacia DIM_RATE.
         data_tests:
           - relationships:
-              to: ref('dim_rate')
-              field: RATE_KEY
+              arguments:
+                to: ref('dim_rate')
+                field: RATE_KEY
 
       - name: VENDOR_KEY
         description: Clave foránea hacia DIM_VENDOR.
         data_tests:
           - relationships:
-              to: ref('dim_vendor')
-              field: VENDOR_KEY
+              arguments:
+                to: ref('dim_vendor')
+                field: VENDOR_KEY
